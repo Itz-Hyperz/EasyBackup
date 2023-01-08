@@ -22,6 +22,10 @@ setInterval(async function() {
         }).on('error', function (err) {
             console.log(err)
         });
+        // Error handler for MySQL backup process
+        mysqldump.on('error', function(err) {
+            if(config.debugMode) console.error(`mysqldump error: ${err}`);
+        });
         setTimeout(function() {
             let file = fs.readFileSync(`./backups/${database}.sql`);
             form.append(`file${database}`, file, `${database}.sql`);
