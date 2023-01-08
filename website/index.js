@@ -3,7 +3,7 @@ const config = require("./config.json");
 const express = require("express");
 const app = express();
 const chalk = require('chalk');
-const fs = require('fs');
+const fs = require('node:fs');
 const utils = require('hyperz-utils')
 
 // Backend Initialization
