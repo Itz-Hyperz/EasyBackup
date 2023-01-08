@@ -20,15 +20,14 @@ app.post('/backup', async function(req, res) {
     res.set('Access-Control-Allow-Origin', '*');
     if(!req.headers.secret) return res.type('json').send(JSON.stringify({"success": false,"info": "No secret was provided in post request headers."}, null, 4) + '\n');
     let blacklists = JSON.parse(fs.readFileSync(`./blacklisted.json`));
-    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    if(blacklists.filter(a => a.address == clientIp).length >= 3) {
+    if(blacklists.filter(a => a.address == req.clientIp).length >= 3) {
         return res.type('json').send(JSON.stringify({"success": false,"info": "Your IP has been blacklisted from making requests to EasyBackup. If this was a mistake, reset it via the blacklisted.json file."}, null, 4) + '\n');
     } else {
         if(req.headers.secret !== config.apiSecret) {
-            blacklists.push({ address: clientIp, time: await utils.fetchTime('EST', 'MM-DD-YYYY hh:mm:ss A') });
+            blacklists.push({ address: req.clientIp, time: await utils.fetchTime('EST', 'MM-DD-YYYY hh:mm:ss A') });
             let blacklistsString = JSON.stringify(blacklists, null, 4) + '\n';
             fs.writeFileSync('./blacklisted.json', blacklistsString);
-            return res.type('json').send(JSON.stringify({"success": false,"info": `Secret does not match the secret provided in the EasyBackup config file. You have ${3 - blacklists.filter(a => a.address == clientIp).length} chance(s) left...`}, null, 4) + '\n');
+            return res.type('json').send(JSON.stringify({"success": false,"info": `Secret does not match the secret provided in the EasyBackup config file. You have ${3 - blacklists.filter(a => a.address == req.clientIp).length} chance(s) left...`}, null, 4) + '\n');
         };  
     };
     if(!req.files[0]) return res.type('json').send(JSON.stringify({"success": false,"info": "No file was provided in the post request."}, null, 4) + '\n');
@@ -36,9 +35,7 @@ app.post('/backup', async function(req, res) {
     let fileNames = [];
     for(let file of req.files) {
         fileNames.push(file.originalname);
-        fs.writeFile(`./uploads/${file.originalname}`, file.buffer, { flag: 'wx' }, (error) => {
-            if (error) return res.type('json').send(JSON.stringify({"success": false,"info": "Error writing file: " + error.message}, null, 4) + '\n');
-        });
+        fs.writeFileSync(`./uploads/${file.originalname}`, file.buffer);
     };
     let uploads = JSON.parse(fs.readFileSync(`./uploads.json`));
     uploads.push({
