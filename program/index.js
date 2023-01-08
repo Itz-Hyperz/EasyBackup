@@ -22,6 +22,10 @@ setInterval(async function() {
         }).on('error', function (err) {
             console.log(err)
         });
+        // Error handler for MySQL backup process
+        mysqldump.on('error', function(err) {
+            if(config.debugMode) console.error(`mysqldump error: ${err}`);
+        });
         setTimeout(function() {
             let file = fs.readFileSync(`./backups/${database}.sql`);
             form.append(`file${database}`, file, `${database}.sql`);
@@ -43,9 +47,4 @@ console.log(chalk.blue('EasyBackup Program Started!'));
 // Rejection Handler
 process.on('unhandledRejection', (err) => { 
     if(config.debugMode) console.log(chalk.red(err));
-});
-
-// Error handler for MySQL backup process
-mysqldump.on('error', function(err) {
-  console.error(`mysqldump error: ${err}`);
 });
