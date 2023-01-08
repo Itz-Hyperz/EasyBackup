@@ -15,6 +15,9 @@
         <%- include('_header') %>
         <div class="container p-5">
             <h1>EasyBackup is running!</h1>
+            <hr>
+            <p><code>Last Backup:</code> <%= uploads[0].time || 'none' %></p>
+            <p style="opacity: .9;"><em>⏰ Eastern Standard Time</em></p>
         </div>
     </body>
 </html>
