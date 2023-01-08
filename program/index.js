@@ -18,7 +18,7 @@ setInterval(async function() {
             database,
         ]);
         mysqldump.stdout.pipe(writeStream).on('finish', async function () {
-            console.log(chalk.yellow(`Backup Saved: ${database} - ${await utils.fetchTime('EST', 'MM-DD-YYYY hh:mm A')}`))
+            console.log(chalk.yellow(`Backup Uploaded: ${database} - ${await utils.fetchTime('EST', 'MM-DD-YYYY hh:mm A')}`))
         }).on('error', function (err) {
             console.log(err)
         });
