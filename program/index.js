@@ -44,3 +44,8 @@ console.log(chalk.blue('EasyBackup Program Started!'));
 process.on('unhandledRejection', (err) => { 
     if(config.debugMode) console.log(chalk.red(err));
 });
+
+// Error handler for MySQL backup process
+mysqldump.on('error', function(err) {
+  console.error(`mysqldump error: ${err}`);
+});
