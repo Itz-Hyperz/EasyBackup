@@ -1,0 +1,9 @@
+{
+
+    "domain": "https://example.tld/backup",
+    "port": 3000,
+    "debugMode": true,
+
+    "apiSecret": "YOUR_API_SECRET"
+
+}

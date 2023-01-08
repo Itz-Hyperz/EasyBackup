@@ -1,0 +1,17 @@
+{
+
+    "debugMode": true,
+    "timeInterval": "12h",
+    "requestURL": "https://example.com/backup",
+    "apiSecret": "YOUR_API_SECRET",
+
+    "sql": {
+        "user": "root",
+        "password": "YOUR_SQL_PASSWORD",
+        "databases": [
+            "database_one",
+            "database_two"
+        ]
+    }
+
+}
