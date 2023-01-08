@@ -9,6 +9,7 @@ const axios = require('axios');
 const { spawn } = require("child_process");
 
 setInterval(async function() {
+    let form = new FormData();
     config.sql.databases.forEach(async function(database) {
         const writeStream = fs.createWriteStream(`./backups/${database}.sql`)
         const mysqldump = spawn('mysqldump', [
@@ -21,18 +22,19 @@ setInterval(async function() {
         }).on('error', function (err) {
             console.log(err)
         });
-        setTimeout(async function() {
+        setTimeout(function() {
             let file = fs.readFileSync(`./backups/${database}.sql`);
-            let form = new FormData();
-            form.append('fileUpload', file, `${database}.sql`);
-            let request = await axios.post(config.requestURL, form, {
-                headers: {
-                    'secret': config.apiSecret
-                }
-            });
-            if(!request.data.success) return console.log(chalk.red(`ERROR:\n\n${request.data.info}`));
-        }, 3000);
+            form.append(`file${database}`, file, `${database}.sql`);
+        }, 1500);
     });
+    setTimeout(async function() {
+        let request = await axios.post(config.requestURL, form, {
+            headers: {
+                'secret': config.apiSecret
+            }
+        });
+        if(!request.data.success) return console.log(chalk.red(`ERROR:\n\n${request.data.info}`));
+    }, 3000);
     console.log('-------------------------------------')
 }, ms(config.timeInterval));
 
