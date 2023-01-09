@@ -7,4 +7,4 @@ This program is designed so you can backup your SQL database(s) and then offshor
 
 # Credits
 - [@Hyperz](https://store.hyperz.net) *Writing all the code.*
-- [@calebrwalk5](https://www.unknowncheats.me/forum/members/5175763.html) *MySQL Dump Error Handler AND the idea to stop the bruteforce bu GET request.*
+- [@calebrwalk5](https://www.unknowncheats.me/forum/members/5175763.html) *MySQL Dump Error Handler AND the idea to stop the bruteforce GET request.*
