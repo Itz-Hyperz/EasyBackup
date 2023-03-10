@@ -5,6 +5,11 @@ Requires `MySQL`, `Ubuntu 18.04/20.04/22.04`, and `root` access for `mysqldump` 
 
 This program is designed so you can backup your SQL database(s) and then offshore them to an entirely separate linux server that can't be accessed by the users bruteforcing your server!
 
+### NGINX Upload Limits / `413` error
+Your server needs to increase the max body size to allocate for larger SQL file dumps.
+
+- [NGINX Upload Limits](https://i.imgur.com/7GiLm5e.png)
+
 # Credits
 - [@Hyperz](https://store.hyperz.net) *Writing all the code.*
 - [@calebrwalk5](https://www.unknowncheats.me/forum/members/5175763.html) *MySQL Dump Error Handler AND the idea to stop the bruteforce GET request.*
