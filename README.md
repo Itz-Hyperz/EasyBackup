@@ -8,7 +8,7 @@ This program is designed so you can backup your SQL database(s) and then offshor
 ### NGINX Upload Limits / `413` error
 Your server needs to increase the max body size to allocate for larger SQL file dumps.
 
-- [NGINX Upload Limits](https://i.imgur.com/7GiLm5e.png)
+- [NGINX Upload Limits](https://docs.bosssoftware.net/c/knowledgebase/nginx-upload-limits)
 
 # Credits
 - [@Hyperz](https://store.hyperz.net) *Writing all the code.*
